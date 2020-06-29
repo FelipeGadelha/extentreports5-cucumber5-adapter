@@ -482,7 +482,7 @@ public class ExtentCucumberAdapter implements ConcurrentEventListener, StrictAwa
 		if (argument != null) {
 			if (argument instanceof DocStringArgument) {
 				// createDocStringMap((DocStringArgument)argument);
-				stepTestThreadLocal.get().pass(createDocString((DocStringArgument) argument));
+				stepTestThreadLocal.get().pass(MarkupHelper.createCodeBlock(createDocString((DocStringArgument) argument)));
 			} else if (argument instanceof DataTableArgument) {
 				stepTestThreadLocal.get()
 						.pass(MarkupHelper.createTable(createDataTableList((DataTableArgument) argument)).getMarkup());
@@ -504,7 +504,7 @@ public class ExtentCucumberAdapter implements ConcurrentEventListener, StrictAwa
 	}
 
 	private String createDocString(DocStringArgument docString) {
-		return docString.getContent().replaceAll("(\r\n|\n)", "<br />");
+		return docString.getContent();
 	}
 
 	// the below additions are from PR #33
